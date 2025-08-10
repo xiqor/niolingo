@@ -29,3 +29,13 @@ def add_item(item):
     ''', (item.id, item.type, item.spelling, item.transcription, item.meaning, item.note, item.added_at))
     connection.commit()
     connection.close()
+
+def remove_item(item):
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute('''
+        DELETE FROM Items
+        WHERE id = ?;
+    ''', (item.id,))
+    connection.commit()
+    connection.close()

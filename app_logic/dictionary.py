@@ -11,13 +11,13 @@ class Item:
         self.note = note
         self.added_at = added_at
 
-    # save new item to db
-    def save(self):
+    # save new item to db WORKS
+    def add(self):
         database.add_item(self)
 
-    # remove item from db
+    # remove item from db WORKS
     def remove(self):
-        pass
+        database.remove_item(self)
 
     # pretty print of item
     def pprint(self):
