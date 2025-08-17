@@ -13,7 +13,6 @@ def create_tables():
             spelling TEXT,
             transcription TEXT,
             meaning TEXT,
-            note TEXT,
             added_at TEXT DEFAULT CURRENT_TIMESTAMP
         );
     ''')
@@ -24,9 +23,9 @@ def add_item(item):
     connection = get_connection()
     cursor = connection.cursor()
     cursor.execute('''
-        INSERT INTO Items (id, type, spelling, transcription, meaning, note, added_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?);
-    ''', (item.id, item.type, item.spelling, item.transcription, item.meaning, item.note, item.added_at))
+        INSERT INTO Items (id, type, spelling, transcription, meaning)
+        VALUES (NULL, ?, ?, ?, ?);
+    ''', (item.type, item.spelling, item.transcription, item.meaning))
     connection.commit()
     connection.close()
 
