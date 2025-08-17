@@ -25,7 +25,7 @@ class Cli(cmd.Cmd):
     def do_show(): #WIP name
         pass
 
-    def do_quit():
-        pass
+    def do_exit(self, arg):
+        return True
 
     #Todo add comand for review mode: set number of questions and randomize it
