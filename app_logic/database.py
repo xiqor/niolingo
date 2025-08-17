@@ -39,14 +39,31 @@ def remove_item(item_id):
     connection.commit()
     connection.close()
 
-def get_item(param):
+def update_item(item_id, new_item):
     connection = get_connection()
     cursor = connection.cursor()
     cursor.execute('''
-        SELECT id, type, spelling, transcription, meaning, added_at
-        FROM Items
-        WHERE spelling = ? OR meaning = ?;
-    ''', (param, param))
+        UPDATE Items
+        SET type = ?, spelling = ?, transcription = ?, meaning = ?
+        WHERE id = ?;
+    ''', (new_item.type, new_item.spelling, new_item.transcription, new_item.meaning, item_id))
+    connection.commit()
+    connection.close()
+
+def get_item(param):
+    connection = get_connection()
+    cursor = connection.cursor()
+    if param:
+        cursor.execute('''
+            SELECT id, type, spelling, transcription, meaning, added_at
+            FROM Items
+            WHERE spelling = ? OR meaning = ?;
+        ''', (param, param))
+    else:
+        cursor.execute('''
+            SELECT *
+            FROM Items
+        ''')
     rows = cursor.fetchall()
     connection.close()
     return rows

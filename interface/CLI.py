@@ -20,17 +20,24 @@ class Cli(cmd.Cmd):
         remove <id>'''
         dictionary.Item.remove(item_id)
 
-    def do_update(self, arg):
-        pass
+    def do_update(self, arg): # add default from existing item and maybe change logic for more user-friendly use
+        '''Update info about any existing word by id
+        update <id> <new_type> <new_spelling> <new_transcription> <new_meaning>'''
+        args = arg.split()
+        item = dictionary.Item(item_type=args[1], spelling=args[2], transcription=args[3], meaning=args[4])
+        item.update(args[0])
 
-    def do_get(self, arg): #WIP name
+    # find a way to make it pretty
+    def do_get(self, arg):
         '''Get info about existing word in dictionary:
         get <spelling/meaning>'''
         print(dictionary.Item.get(arg))
 
-
-    def do_show(): #WIP name
-        pass
+    # find a way to make it pretty
+    def do_getall(self, arg):
+        '''Get info about all words in dictionary:
+        getall'''
+        print(dictionary.Item.get(None))
 
     def do_exit(self, arg):
         return True
