@@ -29,12 +29,24 @@ def add_item(item):
     connection.commit()
     connection.close()
 
-def remove_item(item):
+def remove_item(item_id):
     connection = get_connection()
     cursor = connection.cursor()
     cursor.execute('''
         DELETE FROM Items
         WHERE id = ?;
-    ''', (item.id,))
+    ''', (item_id))
     connection.commit()
     connection.close()
+
+def get_item(param):
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute('''
+        SELECT id, type, spelling, transcription, meaning, added_at
+        FROM Items
+        WHERE spelling = ? OR meaning = ?;
+    ''', (param, param))
+    rows = cursor.fetchall()
+    connection.close()
+    return rows
