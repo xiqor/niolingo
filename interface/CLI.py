@@ -37,7 +37,8 @@ class Cli(cmd.Cmd):
     def do_getall(self, arg):
         '''Get info about all words in dictionary:
         getall'''
-        print(dictionary.Item.get(None))
+        for item in dictionary.Item.get(None):
+            print(item)
 
     def do_exit(self, arg):
         return True
